@@ -18,7 +18,7 @@
 		
 	%>
 	<div>
-		<a href = "<%=request.getContextPath()%>/jsp/jspAddBoardForm.jsp">글 입력</a>
+		<a href = "<%=request.getContextPath()%>/model1/m1AddBoardForm.jsp">글 입력</a>
 	</div>
 	<table border = "1">
 		<thead>
@@ -34,7 +34,7 @@
 				<tr>
 					<td><%=b.getNo()%></td>
 					<td>
-						<a href = "<%=request.getContextPath()%>/jsp/jspBoardOne.jsp?no=<%=b.getNo()%>">
+						<a href = "<%=request.getContextPath()%>/model1/m1BoardOne.jsp?no=<%=b.getNo()%>">
 							<%=b.getTitle()%>
 						</a>
 					</td>

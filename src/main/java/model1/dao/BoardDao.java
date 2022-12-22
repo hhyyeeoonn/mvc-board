@@ -24,10 +24,38 @@ public class BoardDao {
 			b.setNo(rs.getInt("no"));
 			b.setTitle(rs.getString("title"));
 			b.setContent(rs.getString("content"));
+			list.add(b);
 		}
 		return list;
 	}
 	
-	public 
+	public int insertBoardList(Connection conn, Board board) throws Exception { //예외 처리는 BoardService에서 해줄거임
+		int row = 0;
+		String sql = "INSERT INTO board(title, content) VALUES(?, ?)"; 
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, board.getTitle());
+		stmt.setString(2, board.getContent());
+		row = stmt.executeUpdate();
+		return row;
+	}
 	
+	public ArrayList<Board> selectBoardOne(Connection conn, int no) throws Exception {
+		String sql = "SELECT title, content FROM board WHERE no = ?"; //ORDER BY 없다면 no, 인덱스키에 의해 자동정렬
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, no);
+		ResultSet rs = stmt.executeQuery();
+		ArrayList<Board> list = new ArrayList<Board>();
+		if(rs.next()) {
+			Board b = new Board();
+			b.setTitle(rs.getString("title"));
+			b.setContent(rs.getString("content"));
+			list.add(b);
+		}
+		return list;
+	}
+	
+	public int ModifyBoardList(Connection conn, Board board) throws Exception {
+		int row = 0;
+		return row;
+	}
 }

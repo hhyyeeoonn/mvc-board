@@ -14,6 +14,7 @@ import model1.vo.Board;
 // 3) 기타 dao 안에 있어서는 안되는 비지니스로직(코드)
 public class BoardService {
 	private BoardDao boardDao;
+	
 	public ArrayList<Board> getBoardList() {
 		boardDao = new BoardDao();
 		Connection conn = null;
@@ -22,6 +23,58 @@ public class BoardService {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
 			list = boardDao.selectBoardList(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	public int insertBoardList(Board board) {
+		boardDao = new BoardDao();
+		Connection conn = null;
+		int row = 0;
+		try {
+			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			row = boardDao.insertBoardList(conn, board);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
+	public ArrayList<Board> getBoardOne(int no) {
+		boardDao = new BoardDao();
+		Connection conn = null;
+		ArrayList<Board> list = null;
+		try {
+			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			list = boardDao.selectBoardOne(conn, no);
 			conn.commit();
 		} catch (Exception e) {
 			try {
