@@ -29,6 +29,7 @@ public class BoardDao {
 		return list;
 	}
 	
+	// insertBoardList - m1AddboardAction.jsp
 	public int insertBoardList(Connection conn, Board board) throws Exception { //예외 처리는 BoardService에서 해줄거임
 		int row = 0;
 		String sql = "INSERT INTO board(title, content) VALUES(?, ?)"; 
@@ -39,6 +40,7 @@ public class BoardDao {
 		return row;
 	}
 	
+	// ArrayList<Board> getBoardOne - m1ModifyBoardForm.jsp
 	public ArrayList<Board> selectBoardOne(Connection conn, int no) throws Exception {
 		String sql = "SELECT title, content FROM board WHERE no = ?"; //ORDER BY 없다면 no, 인덱스키에 의해 자동정렬
 		PreparedStatement stmt = conn.prepareStatement(sql);
@@ -54,8 +56,25 @@ public class BoardDao {
 		return list;
 	}
 	
-	public int ModifyBoardList(Connection conn, Board board) throws Exception {
+	// modifyBoardList - m1ModifyBoardAction.jsp
+	public int modifyBoardList(Connection conn, Board board) throws Exception {
 		int row = 0;
+		String sql = "UPDATE board SET title = ?, content = ? WHERE no = ?"; //ORDER BY 없다면 no, 인덱스키에 의해 자동정렬
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, board.getTitle());
+		stmt.setString(2, board.getContent());
+		stmt.setInt(3, board.getNo());
+		row = stmt.executeUpdate();	
+		return row;
+	}
+	
+	// removeBoardList - m1RemoveBoardAction.jsp
+	public int removeBoardList(Connection conn, int no) throws Exception {
+		int row = 0;
+		String sql = "DELETE FROM board WHERE no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, no);
+		row = stmt.executeUpdate();
 		return row;
 	}
 }

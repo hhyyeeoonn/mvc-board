@@ -37,12 +37,17 @@
 	%>
 	</table>
 	<div>
+		<span>
 		<a href = "<%=request.getContextPath()%>/model1/m1ModifyBoardForm.jsp?no=<%=no%>">
 			<button type = "button">수정하기</button>
 		</a>
-		
-		<a href = "<%=request.getContextPath()%>/model1/m1RemoveBoard.jsp?no=<%=no%>">
+		</span>
+		<a href = "<%=request.getContextPath()%>/model1/m1RemoveBoardAction.jsp?no=<%=no%>">
 			<button type = "button">삭제하기</button>
+		</a>
+		
+		<a href = "<%=request.getContextPath()%>/model1/m1BoardList.jsp">
+			<button type = "button">글목록으로</button>
 		</a>
 	</div>
 </body>
